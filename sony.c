@@ -1,125 +1,53 @@
 #include<stdio.h>
-#include<stdlib.h>
-#include<stdbool.h>
+#include<conio.h>
 
-#define MAX_VERTICES 10
-
-int a[MAX_VERTICES][MAX_VERTICES], vis[MAX_VERTICES];
-int n;
-
-void DFS(int V) {
-    vis[V] = 1;
-    printf("%d ", V);
-    for (int i = 1; i <= n; i++) {
-        if (a[V][i] == 1 && vis[i] == 0) {
-            DFS(i);
-        }
+void dfs(int);
+int a[10][10],vis[10],exp[10],n,j,m;
+void main()
+{
+   int i,x,y;
+   printf("enter the number of vertices\n");
+   scanf("%d",&n);
+   for(i=1;i<=n;i++)
+   {
+      for(j=1;j<=n;j++)
+      {
+     a[i][j]=0;
+      }
+      vis[i]=0;
     }
+    printf("enter the number of edges\n");
+    scanf("%d",&m);
+    for(i=1;i<=m;i++)
+    {
+       printf("enter an edge\n");
+       scanf("%d %d",&x,&y);
+       a[x][y]=1;
+    }
+    j=0;
+    for(i=1;i<=n;i++)
+    {
+       if(vis[i]==0)
+      dfs(i);
+    }
+    printf("topological sort\n");
+    for(i=n-1;i>=0;i--)
+    {
+       printf("%d",exp[i]);
+    }
+    getch();
 }
 
-bool isConnectedGraph() {
-    for (int i = 1; i <= n; i++) {
-        vis[i] = 0;
-    }
-
-    // Find the first vertex that is reachable from the previous vertex
-    int startVertex = 1;
-    while (vis[startVertex] == 0)
-        startVertex++;
-
-    DFS(startVertex);
-
-    // Check if all vertices are visited
-    for (int i = 1; i <= n; i++) {
-        if (vis[i] == 0)
-            return false;
-    }
-#include<stdio.h>
-#include<stdlib.h>
-#include<stdbool.h>
-
-#define MAX_VERTICES 10
-
-int a[MAX_VERTICES][MAX_VERTICES], vis[MAX_VERTICES];
-int n;
-
-void DFS(int V) {
-    vis[V] = 1;
-    printf("%d ", V);
-    for (int i = 1; i <= n; i++) {
-        if (a[V][i] == 1 && vis[i] == 0) {
-            DFS(i);
-        }
-    }
+void dfs(int v)
+{
+   int i;
+   vis[v]=1;
+   for(i=1;i<=n;i++)
+   {
+      if(a[v][i]==1 && vis[i]==0)
+      dfs(i);
+   }
+   exp[j++]=v;
 }
 
-bool isConnectedGraph() {
-    for (int i = 1; i <= n; i++) {
-        vis[i] = 0;
-    }
-
-    // Find the first vertex that is reachable from the previous vertex
-    int startVertex = 1;
-    while (vis[startVertex] == 0)
-        startVertex++;
-
-    DFS(startVertex);
-
-    // Check if all vertices are visited
-    for (int i = 1; i <= n; i++) {
-        if (vis[i] == 0)
-            return false;
-    }
-
-    return true;
-}
-
-int main() {
-    int i, j;
-
-    printf("Enter the number of vertices: ");
-    scanf("%d", &n);
-
-    printf("Enter the adjacency matrix:\n");
-    for (i = 1; i <= n; i++) {
-        for (j = 1; j <= n; j++) {
-            scanf("%d", &a[i][j]);
-        }
-    }
-
-    if (isConnectedGraph()) {
-        printf("The graph is connected.\n");
-    } else {
-        printf("The graph is not connected.\n");
-    }
-
-    return 0;
-}
-
-
-
-    return true;
-}
-
-int main() {
-    int i, j;
-
-    printf("Enter the number of vertices: ");
-    scanf("%d", &n);
-
-    printf("Enter the adjacency matrix:\n");
-    for (i = 1; i <= n; i++) {
-        for (j = 1; j <= n; j++) {
-            scanf("%d", &a[i][j]);
-        }
-    }
-
-    if (isConnectedGraph()) {
-        printf("The graph is connected.\n");
-    } else {
-        printf("The graph is not connected.\n");
-    }
-
-    return 0;
-}
 
